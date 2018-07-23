@@ -1,0 +1,40 @@
+<% content_first = forecast.first %>
+<div class="forecast-table">
+  <div class="container">
+    <div class="forecast-container">
+      <div class="today forecast">
+        <div class="forecast-header">
+          <div class="day"><%= content_first.dig("item", "forecast", "day") %></div>
+          <div class="date"><%= content_first.dig("item", "forecast", "date") %></div>
+        </div> <!-- .forecast-header -->
+        <div class="forecast-content">
+          <div class="location">New York</div>
+          <div class="degree">
+            <div class="num"><%= content_first.dig("item", "forecast", "high") %><sup>o</sup>C</div>
+            <div class="forecast-icon">
+              <%= image_tag 'icon-1.svg', width: '90' %>
+            </div>
+          </div>
+          <span><%= image_tag 'icon-umberella.png' %><%= content_first.dig("item", "forecast", "high") %></span>
+          <span><%= image_tag 'icon-wind.png' %><%= content_first.dig("item", "forecast", "low") %></span>
+          <span><%= image_tag 'icon-compass.png' %><%= content_first.dig("item", "forecast", "text") %></span>
+        </div>
+      </div>
+      <% forecast.drop(1).each do |fc| %>
+        <div class="forecast">
+          <div class="forecast-header">
+            <div class="day"><%= fc.dig("item", "forecast", "day") %></div>
+          </div>
+          <div class="forecast-content">
+            <div class="forecast-icon">
+              <%= image_tag 'icon-3.svg', width: '48' %>
+            </div>
+            <div class="degree"><%= fc.dig("item", "forecast", "high") %><sup>o</sup>C</div>
+            <small><%= fc.dig("item", "forecast", "low") %><sup>o</sup></small>
+            <div><%= image_tag "icon-compass.png" %><%= fc.dig("item", "forecast", "text") %></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
